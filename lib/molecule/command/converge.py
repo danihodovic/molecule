@@ -94,8 +94,17 @@ class Converge(base.Base):
         base.MOLECULE_DEFAULT_SCENARIO_NAME
     ),
 )
+@click.option(
+    "--interactive",
+    "-i",
+    default=base.MOLECULE_DEFAULT_SCENARIO_NAME,
+    help=(
+        "Run ansible interactively which allows you to enter input"
+        "See: http://amoffat.github.io/sh/sections/special_arguments.html#fg"
+    ),
+)
 @click.argument("ansible_args", nargs=-1, type=click.UNPROCESSED)
-def converge(ctx, scenario_name, ansible_args):  # pragma: no cover
+def converge(ctx, scenario_name, interactive, ansible_args):  # pragma: no cover
     """Use the provisioner to configure instances (dependency, create, prepare converge)."""
     args = ctx.obj.get("args")
     subcommand = base._get_subcommand(__name__)
